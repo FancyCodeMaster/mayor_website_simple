@@ -1,0 +1,19 @@
+---
+import HeroAbout from '../../components/sections/HeroAbout.astro';
+import WorksSection from '../../components/sections/WorksSection.astro';
+import UpdatesSection from '../../components/sections/UpdatesSection.astro';
+import ContactSection from '../../components/sections/ContactSection.astro';
+import { pick, profile } from '../../lib/content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const locale = 'en';
+const name = pick(profile.name, locale).value;
+const tagline = pick(profile.tagline, locale).value;
+---
+
+<BaseLayout locale={locale} title={name} description={tagline}>
+	<HeroAbout locale={locale} />
+	<WorksSection locale={locale} />
+	<UpdatesSection locale={locale} />
+	<ContactSection locale={locale} />
+</BaseLayout>

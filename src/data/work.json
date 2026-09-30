@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "sample-community-project",
+    "title": { "en": "Sample Community Project", "np": "नमुना सामुदायिक आयोजना" },
+    "summary": { "en": "Placeholder overview for a community project. Replace this with verified project information.", "np": "सामुदायिक आयोजनाका लागि नमुना विवरण। प्रकाशनअघि प्रमाणित जानकारीले प्रतिस्थापन गर्नुहोस्।" },
+    "body": { "en": ["Placeholder project details. Replace with verified information before publishing."], "np": ["नमुना आयोजना विवरण। प्रकाशनअघि प्रमाणित जानकारीले प्रतिस्थापन गर्नुहोस्।"] },
+    "coverImage": { "src": "/images/hero-section-2-removebg.png", "alt": { "en": "Placeholder project image", "np": "नमुना आयोजना तस्बिर" } },
+    "category": "other",
+    "status": "in_progress",
+    "startDate": "2026-01-15",
+    "endDate": null,
+    "location": { "en": "Placeholder Municipality", "np": "नमुना नगरपालिका" },
+    "featured": true,
+    "draft": false
+  },
+  {
+    "slug": "sample-education-initiative",
+    "title": { "en": "Sample Education Initiative", "np": "नमुना शिक्षा पहल" },
+    "summary": { "en": "Placeholder overview for an education initiative. Replace this with verified project information.", "np": "शिक्षा पहलका लागि नमुना विवरण। प्रकाशनअघि प्रमाणित जानकारीले प्रतिस्थापन गर्नुहोस्।" },
+    "body": { "en": ["Placeholder initiative details. Replace with verified information before publishing."], "np": ["नमुना पहल विवरण। प्रकाशनअघि प्रमाणित जानकारीले प्रतिस्थापन गर्नुहोस्।"] },
+    "coverImage": { "src": "/images/hero-section-2-removebg.png", "alt": { "en": "Placeholder education initiative image", "np": "नमुना शिक्षा पहलको तस्बिर" } },
+    "category": "education",
+    "status": "planned",
+    "startDate": "2025-11-20",
+    "endDate": null,
+    "location": { "en": "Placeholder Ward", "np": "नमुना वडा" },
+    "featured": true,
+    "draft": false
+  },
+  {
+    "slug": "sample-public-space-upgrade",
+    "title": { "en": "Sample Public Space Upgrade", "np": "नमुना सार्वजनिक स्थान सुधार" },
+    "summary": { "en": "Placeholder overview for a public-space upgrade. Replace this with verified project information.", "np": "सार्वजनिक स्थान सुधारका लागि नमुना विवरण। प्रकाशनअघि प्रमाणित जानकारीले प्रतिस्थापन गर्नुहोस्।" },
+    "body": { "en": ["Placeholder upgrade details. Replace with verified information before publishing."], "np": ["नमुना सुधार विवरण। प्रकाशनअघि प्रमाणित जानकारीले प्रतिस्थापन गर्नुहोस्।"] },
+    "coverImage": { "src": "/images/hero-section-2-removebg.png", "alt": { "en": "Placeholder public space image", "np": "नमुना सार्वजनिक स्थानको तस्बिर" } },
+    "category": "infrastructure",
+    "status": "completed",
+    "startDate": "2025-06-01",
+    "endDate": "2025-12-15",
+    "location": { "en": "Placeholder Community", "np": "नमुना समुदाय" },
+    "featured": true,
+    "draft": false
+  }
+]

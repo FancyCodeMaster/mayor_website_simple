@@ -1,0 +1,91 @@
+---
+import { alternateUrl, getUi } from '../../lib/i18n';
+import { pick, profile, type Locale } from '../../lib/content';
+
+const { locale } = Astro.props as { locale: Locale };
+const ui = getUi(locale);
+const languageUrl = alternateUrl(locale);
+const candidateName = pick(profile.name, locale).value;
+const candidateTitle = pick(profile.title, locale).value;
+const candidateLocation = pick(profile.location, locale).value;
+---
+
+<header class="sticky top-0 z-50 border-b border-border/80 bg-bg/95 backdrop-blur">
+	<nav class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 md:px-8" aria-label="Primary navigation">
+		<a href={locale === 'en' ? '/en' : '/'} class="min-w-0 leading-tight">
+			<span class="block truncate text-base font-bold tracking-tight text-text">{candidateName}</span>
+			<span class="mt-1 block truncate text-xs text-text-muted">{candidateTitle}</span>
+			<span class="block truncate text-[11px] text-text-muted/80">{candidateLocation}</span>
+		</a>
+		<div class="hidden items-center gap-0 md:flex">
+			<a href={locale === 'en' ? '/en#top' : '/#top'} class="rounded-full px-3 py-2 text-sm text-text-muted hover:bg-surface hover:text-text">{ui.nav.about}</a>
+			<a href={locale === 'en' ? '/en#works' : '/#works'} class="rounded-full px-3 py-2 text-sm text-text-muted hover:bg-surface hover:text-text">{ui.nav.work}</a>
+			<a href={locale === 'en' ? '/en#updates' : '/#updates'} class="rounded-full px-3 py-2 text-sm text-text-muted hover:bg-surface hover:text-text">{ui.nav.updates}</a>
+			<a href={locale === 'en' ? '/en#contact' : '/#contact'} class="rounded-full px-3 py-2 text-sm text-text-muted hover:bg-surface hover:text-text">{ui.nav.contact}</a>
+			<a href={locale === 'en' ? '/en/submit-issue' : '/submit-issue'} class="rounded-md bg-primary-dark px-4 py-2 text-sm font-semibold text-white hover:bg-primary">{ui.nav.submitIssue}</a>
+		</div>
+		<div class="flex items-center gap-2">
+			<button type="button" data-menu-toggle class="grid size-10 place-items-center rounded-md border border-border text-text hover:bg-surface md:hidden" aria-expanded="false" aria-controls="mobile-navigation" 			aria-label={ui.nav.menu} data-menu-label={ui.nav.menu} data-close-label={ui.nav.closeMenu}>
+				<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+			</button>
+			<a data-language-toggle href={languageUrl} class="rounded-md border border-border px-3 py-2 text-sm font-semibold text-text hover:bg-surface">{ui.language}</a>
+			<button type="button" data-theme-toggle class="grid size-10 place-items-center rounded-md border border-border text-text hover:bg-surface" aria-label={ui.theme.switchToDark} title={ui.theme.switchToDark}>
+				<svg data-theme-icon class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6 7 7m10 10 1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/><circle cx="12" cy="12" r="4"/></svg>
+			</button>
+		</div>
+	</nav>
+	<div id="mobile-navigation" hidden class="border-t border-border bg-bg px-5 py-3 md:hidden">
+		<div class="mx-auto flex max-w-6xl flex-col gap-1">
+			<a href={locale === 'en' ? '/en#top' : '/#top'} class="rounded-lg px-3 py-3 text-sm text-text-muted hover:bg-surface hover:text-text">{ui.nav.about}</a>
+			<a href={locale === 'en' ? '/en#works' : '/#works'} class="rounded-lg px-3 py-3 text-sm text-text-muted hover:bg-surface hover:text-text">{ui.nav.work}</a>
+			<a href={locale === 'en' ? '/en#updates' : '/#updates'} class="rounded-lg px-3 py-3 text-sm text-text-muted hover:bg-surface hover:text-text">{ui.nav.updates}</a>
+			<a href={locale === 'en' ? '/en#contact' : '/#contact'} class="rounded-lg px-3 py-3 text-sm text-text-muted hover:bg-surface hover:text-text">{ui.nav.contact}</a>
+			<a href={locale === 'en' ? '/en/submit-issue' : '/submit-issue'} class="mt-1 rounded-md bg-primary-dark px-4 py-3 text-center text-sm font-semibold text-white hover:bg-primary">{ui.nav.submitIssue}</a>
+		</div>
+	</div>
+</header>
+
+<script>
+	const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+	const languageToggle = document.querySelector<HTMLAnchorElement>('[data-language-toggle]');
+	const menuToggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+	const mobileNavigation = document.querySelector<HTMLElement>('#mobile-navigation');
+
+	function updateThemeButton() {
+		if (!toggle) return;
+		const dark = document.documentElement.dataset.theme === 'dark';
+		toggle.setAttribute('aria-label', dark ? toggle.dataset.lightLabel || 'Switch to light mode' : toggle.dataset.darkLabel || 'Switch to dark mode');
+	}
+
+	if (toggle) {
+		toggle.dataset.darkLabel = toggle.getAttribute('aria-label') || '';
+		toggle.dataset.lightLabel = toggle.dataset.darkLabel === 'Switch to dark mode' ? 'Switch to light mode' : 'उज्यालो मोडमा बदल्नुहोस्';
+		updateThemeButton();
+		toggle.addEventListener('click', () => {
+			const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+			document.documentElement.dataset.theme = next;
+			localStorage.setItem('theme', next);
+			updateThemeButton();
+		});
+	}
+
+	languageToggle?.addEventListener('click', () => {
+		languageToggle.href += `${window.location.search}${window.location.hash}`;
+	});
+
+	menuToggle?.addEventListener('click', () => {
+		if (!mobileNavigation) return;
+		const isOpen = !mobileNavigation.hidden;
+		mobileNavigation.hidden = isOpen;
+		menuToggle.setAttribute('aria-expanded', String(!isOpen));
+		menuToggle.setAttribute('aria-label', isOpen ? menuToggle.dataset.menuLabel || 'Open menu' : menuToggle.dataset.closeLabel || 'Close menu');
+	});
+
+	mobileNavigation?.querySelectorAll('a').forEach((link) => {
+		link.addEventListener('click', () => {
+			if (!menuToggle || !mobileNavigation) return;
+			mobileNavigation.hidden = true;
+			menuToggle.setAttribute('aria-expanded', 'false');
+		});
+	});
+</script>

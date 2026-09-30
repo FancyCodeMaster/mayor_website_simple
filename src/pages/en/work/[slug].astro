@@ -1,0 +1,35 @@
+---
+import { pick, publishedWorks, type Locale } from '../../../lib/content';
+import { getUi } from '../../../lib/i18n';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+	return publishedWorks.map((work) => ({ params: { slug: work.slug }, props: { work } }));
+}
+
+const locale: Locale = 'en';
+const ui = getUi(locale);
+const statusClasses = {
+	planned: 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-100',
+	in_progress: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200',
+	completed: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200',
+	stalled: 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200',
+} as const;
+const { work } = Astro.props;
+const status = { ...ui.works.statuses[work.status], className: statusClasses[work.status] };
+const title = pick(work.title, locale).value;
+const summary = pick(work.summary, locale).value;
+const location = pick(work.location, locale).value;
+---
+
+<BaseLayout locale={locale} title={title} description={summary}>
+	<main class="mx-auto max-w-4xl px-5 py-16 md:px-8 md:py-24">
+		<a href="/en/work" class="text-sm font-semibold text-primary-dark hover:text-primary">← Back to works</a>
+		<img src={work.coverImage.src} alt={pick(work.coverImage.alt, locale).value} width="1600" height="900" class="mt-8 aspect-[16/9] w-full rounded-2xl object-cover" />
+		<p class={`mt-8 inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-semibold ${status.className}`}><span aria-hidden="true">{status.icon}</span>{status.label}</p>
+		<h1 class="mt-4 text-4xl font-black tracking-tight text-text">{title}</h1>
+		<p class="mt-3 text-sm text-text-muted">{location} · {work.startDate}</p>
+		<p class="mt-6 text-xl leading-8 text-text-muted">{summary}</p>
+		<div class="mt-8 space-y-5 text-lg leading-8 text-text-muted">{work.body[locale].map((paragraph: string) => <p>{paragraph}</p>)}</div>
+	</main>
+</BaseLayout>

@@ -1,0 +1,12 @@
+---
+import IssueSection from '../../../components/sections/IssueSection.astro';
+import { pick, profile } from '../../../lib/content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const locale = 'en';
+const name = pick(profile.name, locale).value;
+---
+
+<BaseLayout locale={locale} title={`Your Voice · ${name}`} description="Share what matters to you and your community">
+	<IssueSection locale={locale} />
+</BaseLayout>

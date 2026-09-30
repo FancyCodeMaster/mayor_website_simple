@@ -1,0 +1,31 @@
+---
+import { pick, profile, type Locale } from '../../lib/content';
+import { getUi } from '../../lib/i18n';
+
+const { locale } = Astro.props as { locale: Locale };
+const ui = getUi(locale);
+const name = pick(profile.name, locale).value;
+const title = pick(profile.title, locale).value;
+const tagline = pick(profile.tagline, locale).value;
+const imageAlt = pick(profile.heroImage.alt, locale).value;
+---
+
+<main id="top">
+	<section class="relative overflow-hidden bg-surface" aria-labelledby="hero-title">
+		<div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_30%,color-mix(in_srgb,var(--color-primary)_18%,transparent),transparent_43%)]" aria-hidden="true"></div>
+		<div class="relative mx-auto grid min-h-[38rem] max-w-6xl items-center gap-10 px-5 py-16 md:grid-cols-2 md:px-8 md:py-24">
+			<div class="order-2 md:order-1">
+				<p class="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-primary">{ui.hero.eyebrow}</p>
+				<h1 id="hero-title" class="max-w-xl text-5xl font-black tracking-tight text-text sm:text-6xl">{name}</h1>
+				<p class="mt-5 text-xl font-semibold text-primary-dark">{title}</p>
+				<p class="mt-6 max-w-xl text-lg leading-8 text-text-muted">{tagline}</p>
+				<a href="#works" class="mt-8 inline-flex rounded-md bg-primary-dark px-5 py-3 font-semibold text-white hover:bg-primary">{ui.hero.exploreWork}</a>
+			</div>
+			<div class="order-1 flex justify-center md:order-2 md:justify-end">
+				<div class="relative w-full max-w-md overflow-hidden rounded-3xl border border-border bg-bg px-5 pt-6 shadow-xl shadow-primary/10 sm:px-8 sm:pt-10">
+					<img src={profile.heroImage.src} alt={imageAlt} width="1600" height="1600" fetchpriority="high" class="mx-auto h-[22rem] w-auto object-contain object-bottom sm:h-[30rem]" />
+				</div>
+			</div>
+		</div>
+	</section>
+	</main>

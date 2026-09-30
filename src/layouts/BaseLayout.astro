@@ -1,0 +1,31 @@
+---
+import '../styles/global.css';
+import Navigation from '../components/interactive/Navigation.astro';
+import type { Locale } from '../lib/content';
+
+const { locale, title, description } = Astro.props as { locale: Locale; title: string; description: string };
+const path = locale === 'en' ? '/en' : '/';
+---
+
+<!doctype html>
+<html lang={locale === 'en' ? 'en' : 'ne'} data-theme="light">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={description} />
+		<link rel="canonical" href={path} />
+		<link rel="alternate" hreflang="ne" href="/" />
+		<link rel="alternate" hreflang="en" href="/en" />
+		<link rel="alternate" hreflang="x-default" href="/" />
+		<link rel="icon" href="/favicon.svg" />
+		<title>{title}</title>
+		<script is:inline>
+			const savedTheme = localStorage.getItem('theme');
+			document.documentElement.dataset.theme = savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+		</script>
+	</head>
+	<body>
+		<Navigation locale={locale} />
+		<slot />
+	</body>
+</html>

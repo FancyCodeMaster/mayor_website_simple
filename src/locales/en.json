@@ -1,0 +1,58 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "work": "Works",
+    "updates": "Updates",
+    "contact": "Contact",
+    "submitIssue": "Submit an issue",
+        "menu": "Open menu",
+        "closeMenu": "Close menu"
+  },
+  "hero": { "eyebrow": "Public service", "exploreWork": "Explore my work" },
+  "contact": { "title": "Want to connect with me?", "description": "Follow along on social media for updates and public activities." },
+  "issue": {
+    "eyebrow": "Community voice",
+    "title": "Your Voice",
+    "overview": "What do you want from me?",
+    "intro": "Tell us what matters to you and your community",
+    "twoMinutes": "Takes about two minutes",
+    "shortFields": "Just a few short fields — no account needed",
+    "anonymousTitle": "Submit anonymously if you prefer",
+    "anonymousText": "Your name and contact details are optional",
+    "municipality": "Municipality",
+    "ward": "Ward",
+    "tole": "Tole / Locality",
+    "tolePlaceholder": "e.g. Chiple Chaur",
+    "category": "Category",
+    "description": "What would you like to see improved?",
+    "descriptionPlaceholder": "Describe the issue or idea in your own words",
+    "name": "Name (optional)",
+    "namePlaceholder": "Your name",
+    "email": "Email (optional)",
+    "emailPlaceholder": "Your email",
+    "submitAnonymously": "Submit anonymously",
+    "submit": "Share Your Voice",
+    "disclaimer": "Your name and email are optional. All submissions are handled according to the office's privacy policy and used to review and respond to your issue."
+  },
+  "updates": {
+    "title": "Latest Updates",
+    "viewUpdate": "Read update",
+    "viewAll": "View all updates",
+    "types": { "activity": "Activity", "speech": "Speech", "interview": "Interview", "press": "Press" }
+  },
+  "works": {
+    "title": "A transparent record of projects and initiatives",
+    "viewProject": "View project",
+    "viewAll": "View all works",
+    "date": "Date",
+    "statuses": {
+      "planned": { "label": "Started", "icon": "○" },
+      "in_progress": { "label": "In progress", "icon": "◷" },
+      "completed": { "label": "Completed", "icon": "✓" },
+      "stalled": { "label": "Stalled", "icon": "!" }
+    }
+  },
+  "theme": { "switchToDark": "Switch to dark mode", "switchToLight": "Switch to light mode" },
+  "language": "नेपाली"
+}

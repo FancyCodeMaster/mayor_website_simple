@@ -1,0 +1,12 @@
+---
+import WorksSection from '../../components/sections/WorksSection.astro';
+import { pick, profile, publishedWorks } from '../../lib/content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const locale = 'np';
+const name = pick(profile.name, locale).value;
+---
+
+<BaseLayout locale={locale} title={`कामहरू · ${name}`} description="प्रकाशित कामहरू र आयोजनाहरूको सूची">
+	<WorksSection locale={locale} items={publishedWorks} showViewAll={false} />
+</BaseLayout>

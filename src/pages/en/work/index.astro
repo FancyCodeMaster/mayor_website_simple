@@ -1,0 +1,12 @@
+---
+import WorksSection from '../../../components/sections/WorksSection.astro';
+import { pick, profile, publishedWorks } from '../../../lib/content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const locale = 'en';
+const name = pick(profile.name, locale).value;
+---
+
+<BaseLayout locale={locale} title={`Works · ${name}`} description="Published works and project updates">
+	<WorksSection locale={locale} items={publishedWorks} showViewAll={false} />
+</BaseLayout>

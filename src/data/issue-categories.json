@@ -1,0 +1,6 @@
+[
+  { "id": "infrastructure", "name": { "en": "Infrastructure", "np": "पूर्वाधार" } },
+  { "id": "sanitation", "name": { "en": "Sanitation", "np": "सरसफाइ" } },
+  { "id": "safety", "name": { "en": "Safety", "np": "सुरक्षा" } },
+  { "id": "other", "name": { "en": "Other", "np": "अन्य" } }
+]

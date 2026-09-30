@@ -1,0 +1,53 @@
+---
+import { issueCategories, municipalities, type Locale } from '../../lib/content';
+import { getUi } from '../../lib/i18n';
+
+const { locale } = Astro.props as { locale: Locale };
+const ui = getUi(locale);
+const municipality = municipalities[0];
+const municipalityName = municipality.name[locale];
+const endpoint = import.meta.env.PUBLIC_ISSUE_FORM_ENDPOINT || '#';
+---
+
+<main class="bg-surface" aria-labelledby="issue-title">
+	<section class="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:grid-cols-[0.85fr_1.15fr] md:gap-16 md:px-8 md:py-24">
+		<div class="self-start md:sticky md:top-28">
+			<p class="text-sm font-bold uppercase tracking-[0.18em] text-primary">{ui.issue.eyebrow}</p>
+			<h1 id="issue-title" class="mt-4 text-5xl font-black tracking-tight text-text">{ui.issue.title}</h1>
+			<h2 class="mt-8 text-2xl font-bold text-text">{ui.issue.overview}</h2>
+			<p class="mt-3 text-lg leading-8 text-text-muted">{ui.issue.intro}</p>
+			<ul class="mt-10 flex flex-col gap-[35px]">
+							<li class="flex gap-3"><img src="/images/clock.png" alt="" width="32" height="32" class="size-8 shrink-0 object-contain" aria-hidden="true" /><span><strong class="block text-sm text-text">{ui.issue.twoMinutes}</strong><span class="mt-1 block text-xs leading-5 text-text-muted">{ui.issue.shortFields}</span></span></li>
+							<li class="flex gap-3"><img src="/images/anonymous.png" alt="" width="32" height="32" class="size-8 shrink-0 object-contain" aria-hidden="true" /><span><strong class="block text-sm text-text">{ui.issue.anonymousTitle}</strong><span class="mt-1 block text-xs leading-5 text-text-muted">{ui.issue.anonymousText}</span></span></li>
+			</ul>
+		</div>
+
+		<form id="issue-form" action={endpoint} method="POST" class="rounded-2xl border border-border bg-bg p-5 shadow-xl shadow-primary/5 sm:p-8">
+			<input type="hidden" name="municipality" value={municipality.id} />
+			<div class="grid gap-5 sm:grid-cols-2">
+				<label class="block sm:col-span-2"><span class="mb-2 block text-sm font-semibold text-text">{ui.issue.municipality}</span><input value={municipalityName} readonly class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-text outline-none focus:border-text focus:outline-none focus-visible:outline-none focus:ring-0" /></label>
+				<label class="block"><span class="mb-2 block text-sm font-semibold text-text">{ui.issue.ward}</span><select name="ward" required class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-text outline-none transition focus:border-text focus:outline-none focus-visible:outline-none focus:ring-0"><option value="">—</option>{Array.from({ length: municipality.wardCount }, (_, index) => <option value={index + 1}>{index + 1}</option>)}</select></label>
+				<label class="block"><span class="mb-2 block text-sm font-semibold text-text">{ui.issue.tole}</span><input name="tole" required minlength="1" maxlength="100" placeholder={ui.issue.tolePlaceholder} class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-text placeholder:text-text-muted outline-none transition focus:border-text focus:outline-none focus-visible:outline-none focus:ring-0" /></label>
+				<label class="block sm:col-span-2"><span class="mb-2 block text-sm font-semibold text-text">{ui.issue.category}</span><select name="category" required class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-text outline-none transition focus:border-text focus:outline-none focus-visible:outline-none focus:ring-0"><option value="">—</option>{issueCategories.map((category) => <option value={category.id}>{category.name[locale]}</option>)}</select></label>
+				<label class="block sm:col-span-2"><span class="mb-2 block text-sm font-semibold text-text">{ui.issue.description}</span><textarea name="description" required minlength="20" maxlength="2000" rows="6" placeholder={ui.issue.descriptionPlaceholder} class="w-full resize-y rounded-lg border border-border bg-surface px-4 py-3 text-text placeholder:text-text-muted outline-none transition focus:border-text focus:outline-none focus-visible:outline-none focus:ring-0"></textarea></label>
+				<label class="block"><span class="mb-2 block text-sm font-semibold text-text">{ui.issue.name}</span><input data-contact-field name="name" placeholder={ui.issue.namePlaceholder} class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-text placeholder:text-text-muted outline-none transition focus:border-text focus:outline-none focus-visible:outline-none focus:ring-0" /></label>
+				<label class="block"><span class="mb-2 block text-sm font-semibold text-text">{ui.issue.email}</span><input data-contact-field type="email" name="email" placeholder={ui.issue.emailPlaceholder} class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-text placeholder:text-text-muted outline-none transition focus:border-text focus:outline-none focus-visible:outline-none focus:ring-0" /></label>
+			</div>
+			<label class="mt-5 flex cursor-pointer items-center gap-3 text-sm text-text"><input id="anonymous" type="checkbox" name="anonymous" value="true" class="size-4 accent-primary outline-none focus:ring-2 focus:ring-border" />{ui.issue.submitAnonymously}</label>
+						<button type="submit" class="mt-6 w-full rounded-lg bg-primary-dark px-5 py-3 font-semibold text-white transition hover:bg-primary focus:outline-none focus:ring-2 focus:ring-border focus:ring-offset-2">{ui.issue.submit}</button>
+			<p class="mt-4 text-xs leading-5 text-text-muted">{ui.issue.disclaimer}</p>
+		</form>
+	</section>
+</main>
+
+<script>
+	const anonymous = document.querySelector<HTMLInputElement>('#anonymous');
+	const contactFields = document.querySelectorAll<HTMLInputElement>('[data-contact-field]');
+	anonymous?.addEventListener('change', () => {
+		contactFields.forEach((field) => {
+			field.disabled = anonymous.checked;
+			if (anonymous.checked) field.value = '';
+		});
+	});
+</script>
+

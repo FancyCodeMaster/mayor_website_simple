@@ -1,0 +1,46 @@
+{
+  "name": {
+    "en": "Sample Candidate",
+    "np": "नमुना उम्मेदवार"
+  },
+  "title": {
+    "en": "Placeholder Public Representative",
+    "np": "नमुना जनप्रतिनिधि"
+  },
+  "location": {
+    "en": "Placeholder Municipality",
+    "np": "नमुना नगरपालिका"
+  },
+  "tagline": {
+    "en": "Placeholder content for the candidate's public service message.",
+    "np": "जनसेवा सन्देशका लागि नमुना सामग्री।"
+  },
+  "bio": {
+    "en": [
+      "This is placeholder biography copy. Replace it with verified information before publishing.",
+      "Use this space to describe priorities and public-service experience with confirmed details."
+    ],
+    "np": [
+      "यो नमुना जीवनी सामग्री हो। प्रकाशनअघि प्रमाणित जानकारीले प्रतिस्थापन गर्नुहोस्।",
+      "यस स्थानमा प्राथमिकता र जनसेवाको अनुभवसम्बन्धी पुष्टि भएका विवरण राख्नुहोस्।"
+    ]
+  },
+  "heroImage": {
+    "src": "/images/hero-section-2-removebg.png",
+    "alt": {
+      "en": "Portrait of the sample candidate",
+      "np": "नमुना उम्मेदवारको तस्बिर"
+    }
+  },
+  "contactEmail": "placeholder@example.com",
+  "contactPhone": "+977-000-0000000",
+  "officeAddress": {
+    "en": "Placeholder office address",
+    "np": "नमुना कार्यालय ठेगाना"
+  },
+  "socialLinks": [
+    { "platform": "facebook", "username": "sample-candidate", "url": "https://facebook.com/sample-candidate", "icon": "/images/facebook-social-icon.png" },
+        { "platform": "instagram", "username": "sample.candidate", "url": "https://instagram.com/sample.candidate", "icon": "/images/instagram-social-icon.png" },
+        { "platform": "tiktok", "username": "@sample-candidate", "url": "https://tiktok.com/@sample-candidate", "icon": "/images/tiktok-social-icon.png" }
+  ]
+}

@@ -1,0 +1,47 @@
+---
+import { featuredWorks, pick, type Locale, type Work } from '../../lib/content';
+import { getUi } from '../../lib/i18n';
+
+const { locale, items = featuredWorks, showViewAll = true } = Astro.props as { locale: Locale; items?: Work[]; showViewAll?: boolean };
+const ui = getUi(locale);
+const localePrefix = locale === 'en' ? '/en' : '';
+const statusClasses = {
+	planned: 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-100',
+	in_progress: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200',
+	completed: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200',
+	stalled: 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200',
+} as const;
+const formatDate = (date: string) => new Intl.DateTimeFormat(locale === 'en' ? 'en' : 'ne', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(`${date}T00:00:00`));
+---
+
+<section id="works" class="scroll-mt-20 bg-bg" aria-labelledby="works-title">
+	<div class="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+		<div class="flex items-end justify-between gap-6">
+			<div>
+				<p class="text-sm font-bold uppercase tracking-[0.18em] text-primary">{ui.nav.work}</p>
+				<h2 id="works-title" class="mt-3 text-3xl font-bold tracking-tight text-text sm:text-4xl">{ui.works.title}</h2>
+			</div>
+		</div>
+		<div class="mt-10 grid gap-6 md:grid-cols-3">
+			{items.map((work) => {
+				const title = pick(work.title, locale).value;
+				const location = pick(work.location, locale).value;
+				const summary = pick(work.summary, locale).value;
+				const status = { ...ui.works.statuses[work.status], className: statusClasses[work.status] };
+				return <article class="flex flex-col overflow-hidden rounded-2xl border border-border bg-surface">
+					<img src={work.coverImage.src} alt={pick(work.coverImage.alt, locale).value} width="1600" height="900" loading="lazy" class="aspect-[16/9] w-full object-cover" />
+					<div class="flex flex-1 flex-col p-5">
+						<p class={`mb-3 inline-flex w-fit items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold ${status.className}`}><span aria-hidden="true">{status.icon}</span>{status.label}</p>
+						<h3 class="text-xl font-bold text-text">{title}</h3>
+						<p class="mt-2 text-xs text-text-muted">{location} · {ui.works.date}: {formatDate(work.startDate)}</p>
+						<p class="mt-4 flex-1 leading-7 text-text-muted">{summary}</p>
+						<a href={`${localePrefix}/work/${work.slug}`} class="mt-5 font-semibold text-primary-dark hover:text-primary">{ui.works.viewProject} <span aria-hidden="true">→</span></a>
+					</div>
+				</article>;
+			})}
+		</div>
+		{showViewAll && <div class="mt-10 text-center">
+			<a href={`${localePrefix}/work`} class="inline-flex rounded-md bg-primary-dark px-5 py-3 font-semibold text-white hover:bg-primary">{ui.works.viewAll}</a>
+		</div>}
+	</div>
+</section>
