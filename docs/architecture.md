@@ -80,7 +80,7 @@ The old Preact islands are plain `.astro` components with a small vanilla
 | `MobileMenu` | Opens/closes the nav drawer |
 | `NavScroll` | Highlights the active homepage section |
 | `ListFilter` | Shows/hides already-rendered cards via `data-category` / `data-status` / `data-type`; syncs selection to the query string. With JS off, all items show. |
-| `IssueForm` | Municipality → ward dropdown, validation, submit (§9) |
+| `IssueForm` | Municipality → ward dropdown, client validation, Google Apps Script submission, and success notice (§9) |
 
 If a component doesn't need JS, it has no `<script>`.
 
@@ -113,19 +113,26 @@ value. No reload.
 - Tokens are defined once in `global.css`. Components use token-backed
   utilities, never raw hex values.
 
-## 9. Issue form (no backend)
+## 9. Issue form (Google Apps Script)
 
-The form posts from the browser to a **hosted form endpoint**
-(`PUBLIC_ISSUE_FORM_ENDPOINT`, `deployment.md` §4) that emails the office.
+The form posts from the browser to a **Google Apps Script Web App**
+(`PUBLIC_ISSUE_FORM_ENDPOINT`, `deployment.md` §4). The site remains static;
+the Apps Script is a separate, owner-managed integration.
 
 - Municipality/ward options come from `municipalities.json`, embedded at
   build time and read by the `IssueForm` script.
-- Honeypot + minimum-time checks run client-side; a bot-like submission
-  shows success without sending (`security.md` §2).
-- Submissions aren't stored by the site.
-- Upgrade path: one Cloudflare Pages Function (`functions/api/issue.ts`)
-  that validates server-side and sends via an email API. That's the first
-  own-server code and needs a doc update (`AGENTS.md` §4 rule 7).
+- The form validates fields before submission and displays a success notice
+  after the browser sends the request. It sends URL-encoded form data because
+  Apps Script's `e.parameter` parser does not reliably handle multipart
+  `FormData` requests.
+- `google-apps-script/Code.gs` validates the request again, appends it to a
+  configured Google Sheet, and sends a confirmation only when the visitor
+  supplied an email address. The confirmation is addressed to the submitter,
+  with the configured politician address as `replyTo`. `MailApp` sends from
+  the Google account that owns the Web App deployment.
+- The Apps Script runs under the Google account that authorized it, so that
+  account sends any confirmation email. It is not a separate backend hosted
+  by this site.
 
 ## 10. Deliberately left out
 

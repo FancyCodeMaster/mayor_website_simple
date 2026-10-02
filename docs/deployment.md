@@ -5,7 +5,7 @@
 | Piece | Host | Notes |
 |---|---|---|
 | Public site (static Astro) | **Cloudflare Pages** | Plain static build, no adapter, no Functions |
-| Issue form | Hosted form provider | See `architecture.md` §9 |
+| Issue form | Google Apps Script Web App + Google Sheets | See `architecture.md` §9 |
 
 Any static host works if you'd rather not use Cloudflare.
 
@@ -34,10 +34,46 @@ Any static host works if you'd rather not use Cloudflare.
 | Variable | Purpose |
 |---|---|
 | `PUBLIC_SITE_URL` | Absolute base URL for canonical/OG/sitemap/RSS (`seo.md`) |
-| `PUBLIC_ISSUE_FORM_ENDPOINT` | Hosted form endpoint the issue form posts to |
+| `PUBLIC_ISSUE_FORM_ENDPOINT` | Google Apps Script Web App `/exec` URL that receives issue submissions |
+| `PUBLIC_POLITICIAN_EMAIL` | Public fallback reply-to address for confirmation emails sent to submitters; actual sender is configured in Apps Script |
 
-Both are public by nature. Keep a `.env.example` with placeholders; set
-real values in the Pages dashboard per environment (production / preview).
+These values are public by nature. Keep a `.env.example` with placeholders;
+set real values in the Pages dashboard per environment (production / preview).
+Changing `PUBLIC_POLITICIAN_EMAIL` and rebuilding changes the address used by
+new confirmation emails. Google Apps Script sends the message through the
+Google account that owns the deployment; `replyTo` directs replies to the
+configured politician address.
+
+### Google Apps Script setup
+
+1. Create a Google Sheet owned by the Gmail account that will send visitor
+   confirmations, then copy its ID from the Sheet URL.
+2. Create an Apps Script project under that same account and paste
+   `google-apps-script/Code.gs` into it.
+3. In **Project Settings → Script properties**, set `ISSUE_SHEET_ID` to the
+   Sheet ID. Set `POLITICIAN_EMAIL` to the reply-to Gmail address and optionally
+   set `POLITICIAN_NAME` and `ISSUE_SHEET_NAME` (defaults to `Issues`).
+4. Run `doGet` once from the Apps Script editor and approve the Google Sheets permission. The first
+   submission with an email address also requires Google Mail authorization for the account executing the web app.
+5. Deploy as a Web App that executes as the politician's Gmail account and accepts requests from
+   anyone. Copy the deployment's `/exec` URL into `PUBLIC_ISSUE_FORM_ENDPOINT`. After deployment,
+   opening that URL in a browser should return `{ "ok": true, "sheet": "Issues" }`.
+6. After every Code.gs change, create a new Web App version and update the deployment to that
+   version. The public `/exec` URL otherwise continues running the old code.
+7. Share the Sheet with `silwalrikesh1@gmail.com` if that address needs to
+   review the submissions. Do not place Gmail addresses or Sheet IDs in the
+   public site environment file.
+
+### Email deliverability
+
+- Gmail decides inbox versus spam; Apps Script cannot force inbox placement.
+- Do not use the sender's own address as the only test recipient. Gmail often
+  places self-sent automated messages in Spam; test with an independent address
+  and choose **Not spam** once if needed.
+- For a custom-domain sender, publish SPF and DKIM records and add a DMARC
+  policy. The Web App must execute as the authenticated mailbox for that domain.
+- Keep the sender name, reply-to address, and website identity consistent. Do
+  not repeatedly resend identical test messages.
 
 ## 5. CI
 

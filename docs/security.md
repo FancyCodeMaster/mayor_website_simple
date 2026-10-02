@@ -7,22 +7,25 @@ small. This doc covers what remains.
 
 No login, sessions, tokens, database, file uploads, or server code. There
 are no secrets in the repo: the only environment values are public
-(`PUBLIC_SITE_URL`, `PUBLIC_ISSUE_FORM_ENDPOINT`, `deployment.md` §4).
+(`PUBLIC_SITE_URL`, `PUBLIC_ISSUE_FORM_ENDPOINT`, `PUBLIC_POLITICIAN_EMAIL`,
+`deployment.md` §4).
 
 ## 2. Issue form
 
-- The site cannot validate server-side, so client-side checks are UX
-  only; the **hosted form provider's spam filtering and limits are the
-  real gate**. Choose a provider that has them.
+- The browser validates name, email, and tole for visitor feedback; the
+  Google Apps Script validates all submitted values again before it writes
+  to the Sheet.
 - **Honeypot** field (must be empty) + **minimum 3 seconds** between page
-  load and submit. On failure, show success without sending, so a bot
-  isn't told which check failed.
-- Field bounds: description 20-2000 chars, tole 1-100 chars.
-- The endpoint receives optional name/email/phone, so it is personal
-  data. Pick a provider deliberately, and mention it in any privacy note
-  on the site.
-- Upgrade path if spam appears: Cloudflare Turnstile, or the small Pages
-  Function described in `architecture.md` §9. Not built preemptively.
+  load and submit run in both places. The public endpoint remains a spam
+  risk; add Cloudflare Turnstile before high-traffic use.
+- Field bounds: description 20-2000 chars, tole 1-100 chars, name 0-100
+  chars, email 0-254 chars.
+- The endpoint receives optional name and email, which are personal data.
+  Limit access to the Google Sheet and disclose this handling in the
+  privacy note.
+- The site uses an opaque browser request to Google Apps Script, so the
+  success notice confirms that the browser sent the data; monitor the
+  Sheet to confirm delivery during setup.
 
 ## 3. Content integrity (reputational risk)
 

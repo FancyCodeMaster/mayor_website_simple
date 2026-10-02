@@ -2,9 +2,9 @@
 import { alternateUrl, getUi } from '../../lib/i18n';
 import { pick, profile, type Locale } from '../../lib/content';
 
-const { locale } = Astro.props as { locale: Locale };
+const { locale, pathname } = Astro.props as { locale: Locale; pathname: string };
 const ui = getUi(locale);
-const languageUrl = alternateUrl(locale);
+const languageUrl = alternateUrl(locale, pathname);
 const candidateName = pick(profile.name, locale).value;
 const candidateTitle = pick(profile.title, locale).value;
 const candidateLocation = pick(profile.location, locale).value;

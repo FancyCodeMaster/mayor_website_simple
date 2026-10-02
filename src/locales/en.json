@@ -33,6 +33,9 @@
     "emailPlaceholder": "Your email",
     "submitAnonymously": "Submit anonymously",
     "submit": "Share Your Voice",
+    "sending": "Sending…",
+    "sent": "Your voice has been sent to the authorized person.",
+    "sendFailed": "Your voice could not be sent. Please try again later.",
     "disclaimer": "Your name and email are optional. All submissions are handled according to the office's privacy policy and used to review and respond to your issue."
   },
   "updates": {

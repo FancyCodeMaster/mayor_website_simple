@@ -8,6 +8,7 @@ export function getUi(locale: Locale) {
 	return locales[locale];
 }
 
-export function alternateUrl(locale: Locale) {
-	return locale === 'en' ? '/' : '/en';
+export function alternateUrl(locale: Locale, pathname = '/') {
+	const path = pathname === '/en' ? '/' : pathname.replace(/^\/en(?=\/)/, '');
+	return locale === 'en' ? path : path === '/' ? '/en' : `/en${path}`;
 }
