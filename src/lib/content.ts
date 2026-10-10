@@ -10,11 +10,11 @@ export type Locale = 'en' | 'np';
 
 export const profile: Profile = profileSchema.parse(profileData);
 export const works: Work[] = workData.map((item) => workSchema.parse(item));
-export const featuredWorks = works.filter((work) => work.featured && !work.draft).slice(0, 3);
 export const publishedWorks = works.filter((work) => !work.draft);
+export const featuredWorks = publishedWorks.slice(0, 3);
 export const updates: Update[] = updateData.map((item) => updateSchema.parse(item));
-export const featuredUpdates = updates.filter((update) => update.featured && !update.draft).slice(0, 3);
 export const publishedUpdates = updates.filter((update) => !update.draft);
+export const featuredUpdates = publishedUpdates.slice(0, 3);
 export const municipalities: Municipality[] = municipalitiesData.map((item) => municipalitySchema.parse(item));
 export const issueCategories: IssueCategory[] = issueCategoriesData.map((item) => issueCategorySchema.parse(item));
 

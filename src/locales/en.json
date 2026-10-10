@@ -42,12 +42,14 @@
     "title": "Latest Updates",
     "viewUpdate": "Read update",
     "viewAll": "View all updates",
+    "empty": "Update section is being updated.",
     "types": { "activity": "Activity", "speech": "Speech", "interview": "Interview", "press": "Press" }
   },
   "works": {
     "title": "A transparent record of projects and initiatives",
     "viewProject": "View project",
     "viewAll": "View all works",
+    "empty": "Work section is being updated.",
     "date": "Date",
     "statuses": {
       "planned": { "label": "Started", "icon": "○" },

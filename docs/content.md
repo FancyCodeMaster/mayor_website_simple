@@ -36,8 +36,10 @@ All owner-editable content lives in `src/data/`. Four files:
 - **Images** are files under `public/images/`, referenced by absolute
   path (`/images/work/example.jpg`). Every image object carries bilingual
   `alt`.
-- **Homepage order** = position in the file among `featured` items.
-  There is no `order` field.
+- **Homepage order** = position in the file among published items. The
+  homepage displays the first three published items; the section page displays
+  all published items. The `featured` field is retained for content metadata
+  but does not limit homepage visibility. There is no `order` field.
 - **List page order**: Work by `startDate` descending, Updates by `date`
   descending.
 - **`draft: true`** items are excluded everywhere (pages, sitemap, RSS).
