@@ -4,8 +4,8 @@
     "np": "श्याम सुन्दर धिमाल"
   },
   "title": {
-    "en": "Public Representative",
-    "np": "जनप्रतिनिधि"
+    "en": "Ward Chairman, Ward 3",
+    "np": "वडा अध्यक्ष, वडा नं. ३"
   },
   "location": {
     "en": "Changunarayan Municipality",
@@ -32,11 +32,11 @@
       "np": "नमुना उम्मेदवारको तस्बिर"
     }
   },
-  "contactEmail": "placeholder@example.com",
+  "contactEmail": "shyamsundardhimal3@gmail.com",
   "contactPhone": "+977-000-0000000",
   "officeAddress": {
-    "en": "Placeholder office address",
-    "np": "नमुना कार्यालय ठेगाना"
+    "en": "Jhaukhel, Changunarayan Municipality, Bhaktapur",
+    "np": "झौखेल, चाँगुनारायण नगरपालिका, भक्तपुर"
   },
   "socialLinks": [
     { "platform": "facebook", "username": "Shyam Sundar Dhimal", "url": "https://www.facebook.com/share/1F94oGySoR/", "icon": "/images/facebook-social-icon.png" },

@@ -1,18 +1,28 @@
-# Content (JSON)
+# Content
 
-All owner-editable content lives in `src/data/`. Four files:
+Owner-editable work and update content uses Astro Content Collections. Each item
+has one folder containing bilingual Markdown files:
+
+```text
+src/content/
+├── work/{slug}/en.md
+├── work/{slug}/np.md
+├── updates/{slug}/en.md
+└── updates/{slug}/np.md
+```
+
+Other owner-editable data remains in `src/data/`:
 
 | File | Shape | Purpose |
 |---|---|---|
-| `work.json` | array | Work items |
-| `updates.json` | array | Updates (speech / interview / press / activity) |
 | `profile.json` | object | Hero/About and Contact |
 | `municipalities.json` | array | Issue-form dropdowns |
+| `issue-categories.json` | array | Issue-form categories |
 
 ## 1. Owner workflow
 
-1. Edit the JSON file (locally or in GitHub's web editor).
-2. Commit and push.
+1. Add or edit both `en.md` and `np.md` inside the item's folder (locally or in GitHub's web editor).
+2. Keep the same `slug` in both frontmatter files; commit and push.
 3. The host rebuilds. A mistake fails the build with a readable error and
    the live site keeps the previous version (§7).
 4. Live in about 1-2 minutes.
@@ -27,12 +37,9 @@ All owner-editable content lives in `src/data/`. Four files:
 - **`slug`**: lowercase kebab-case, unique within its file, shared across
   languages (`/work/{slug}` and `/en/work/{slug}`). Treat as stable once
   published; changing it breaks existing links.
-- **Body text** is an array of Markdown blocks, one string per paragraph,
-  heading, or list. This avoids `\n\n` escapes in hand-edited JSON.
-  Rendered at build time with `marked`; raw HTML is escaped.
-```json
-  "body": { "en": ["First paragraph.", "## A heading", "- item one\n- item two"], "np": [] }
-```
+- **Body text** is the Markdown body of each locale file. Separate paragraphs,
+  headings, and lists with blank lines. The loader exposes the same
+  `body.en` / `body.np` string-array shape to pages as before.
 - **Images** are files under `public/images/`, referenced by absolute
   path (`/images/work/example.jpg`). Every image object carries bilingual
   `alt`.
@@ -45,29 +52,33 @@ All owner-editable content lives in `src/data/`. Four files:
 - **`draft: true`** items are excluded everywhere (pages, sitemap, RSS).
   New items should start as drafts.
 - Examples below are **placeholders**. Never ship invented content.
+- Work cover images are free-license illustrative references, not evidence that a
+  pictured location or project is the ward's actual project. Source and license
+  details are recorded in [`src/data/work-image-credits.json`](../src/data/work-image-credits.json).
 
-## 3. `work.json`
+## 3. Work items
 
-```json
-[
-  {
-    "slug": "example-project",
-    "title":   { "en": "Example project", "np": "उदाहरण आयोजना" },
-    "summary": { "en": "One or two sentences (~150-160 chars).", "np": "..." },
-    "body":    { "en": ["Paragraph."], "np": ["अनुच्छेद।"] },
-    "coverImage": {
-      "src": "/images/work/example-project.jpg",
-      "alt": { "en": "Describe the image", "np": "..." }
-    },
-    "category": "infrastructure",
-    "status": "in_progress",
-    "startDate": "2025-01-15",
-    "endDate": null,
-    "location": { "en": "Ward 3", "np": "वडा ३" },
-    "featured": true,
-    "draft": true
-  }
-]
+Create `src/content/work/example-project/en.md` and `np.md`. Both files use
+identical frontmatter; their Markdown bodies contain the English and Nepali
+versions respectively.
+
+```yaml
+---
+{
+  "slug": "example-project",
+  "title": { "en": "Example project", "np": "उदाहरण आयोजना" },
+  "summary": { "en": "One or two sentences.", "np": "..." },
+  "coverImage": { "src": "/images/work/example-project.jpg", "alt": { "en": "Describe the image", "np": "..." } },
+  "category": "infrastructure",
+  "status": "in_progress",
+  "startDate": "2025-01-15",
+  "endDate": null,
+  "location": { "en": "Ward 3", "np": "वडा ३" },
+  "featured": true,
+  "draft": true
+}
+---
+Paragraph for this locale.
 ```
 
 | Field | Notes |
@@ -80,23 +91,26 @@ All owner-editable content lives in `src/data/`. Four files:
 | `location` | optional bilingual |
 | `featured`, `draft` | booleans |
 
-## 4. `updates.json`
+## 4. Update items
 
-```json
-[
-  {
-    "slug": "example-speech",
-    "type": "speech",
-    "date": "2025-02-10",
-    "summary": { "en": "...", "np": "..." },
-    "body":    { "en": ["..."], "np": [] },
-    "coverImage": null,
-    "externalUrl": null,
-    "sourceName": null,
-    "featured": false,
-    "draft": true
-  }
-]
+Create `src/content/updates/example-speech/en.md` and `np.md` with the same
+frontmatter and a locale-specific Markdown body.
+
+```yaml
+---
+{
+  "slug": "example-speech",
+  "type": "speech",
+  "date": "2025-02-10",
+  "summary": { "en": "...", "np": "..." },
+  "coverImage": null,
+  "externalUrl": null,
+  "sourceName": null,
+  "featured": false,
+  "draft": true
+}
+---
+Update body for this locale.
 ```
 
 - `type`: `speech` \| `interview` \| `press` \| `activity`.
@@ -138,12 +152,13 @@ All owner-editable content lives in `src/data/`. Four files:
 
 ## 7. Validation (build-time)
 
-`lib/schema.ts` defines zod schemas (imported from `astro/zod`) for all
-four files, run by `lib/content.ts` at build. The build fails, with the
-file, item slug, and field named, on:
+`src/content.config.ts` defines Astro Content Collection schemas using the
+zod schemas in `lib/schema.ts`. `lib/content.ts` loads both locale files,
+reconstructs the page-facing shape, and validates it at build. The build
+fails, with the file, item slug, and field named, on:
 
 - invalid JSON syntax, missing required fields, wrong enum values
-- a slug that isn't kebab-case, or a duplicate slug within a file
+- a slug that isn't kebab-case, or a duplicate slug within a collection
 - a required bilingual field with **both** languages empty
 - an image with `src` but no alt text in either language
 - `endDate` before `startDate`; invalid dates
@@ -164,4 +179,5 @@ note instead of silently showing the wrong language.
 
 Field names and shapes mirror the earlier database design, so moving to a
 backend/admin later means replacing the loaders in `lib/content.ts`; the
-pages and components don't change.
+pages and components don't change. Content Collection metadata remains
+separate from locale-specific Markdown bodies.

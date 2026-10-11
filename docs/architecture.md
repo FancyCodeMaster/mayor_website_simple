@@ -3,20 +3,20 @@
 ## 1. Why one static site
 
 The earlier design existed so non-technical staff could edit content
-through a UI. That's out of scope now: the owner edits JSON directly and
-the priority is a good public UI, shipped quickly.
+through a UI. That's out of scope now: the owner edits repository content
+directly and the priority is a good public UI, shipped quickly.
 
-**Decided: one Astro project, fully static, content from JSON in the
-repo.** No server, database, or second app. Routes, components, and UI
-are unchanged.
+**Decided: one Astro project, fully static, content from Astro Content
+Collections in the repo.** No server, database, or second app. Routes,
+components, and UI are unchanged.
 
 Accepted trade-off: a content change needs a rebuild/deploy (about 1-2
 minutes) and repo access. Nothing else changes for visitors.
 
 ## 2. Rendering: static
 
-**Decided: `output: 'static'`.** Every page is prerendered from the JSON
-files, so crawlers get full content in the HTML (`seo.md` §1). Dynamic
+**Decided: `output: 'static'`.** Every page is prerendered from the Content
+Collections, so crawlers get full content in the HTML (`seo.md` §1). Dynamic
 routes (`work/[...slug].astro`, `updates/[...slug].astro`, and the `en/`
 mirrors) use `getStaticPaths()`: `slug: undefined` for the list page, one
 entry per non-draft item for detail pages. No SSR adapter needed.
@@ -28,11 +28,14 @@ No client-side content fetching (`AGENTS.md` §4 rule 4).
 ```
 astro-site/
 ├── src/
-│   ├── data/                        # owner-editable, see content.md
-│   │   ├── work.json
-│   │   ├── updates.json
+│   ├── content.config.ts             # Astro collection loaders and schemas
+│   ├── content/                      # bilingual work/update Markdown
+│   │   ├── work/{slug}/{en,np}.md
+│   │   └── updates/{slug}/{en,np}.md
+│   ├── data/                         # remaining owner-editable JSON
 │   │   ├── profile.json
-│   │   └── municipalities.json
+│   │   ├── municipalities.json
+│   │   └── issue-categories.json
 │   ├── pages/
 │   │   ├── index.astro              # /
 │   │   ├── en/index.astro           # /en
@@ -50,7 +53,7 @@ astro-site/
 │   ├── layouts/BaseLayout.astro
 │   ├── lib/
 │   │   ├── content.ts               # load, validate, filter, sort; locale pick with fallback
-│   │   ├── schema.ts                # zod schemas for the four JSON files
+│   │   ├── schema.ts                # zod schemas for all content
 │   │   ├── markdown.ts              # marked wrapper (build time)
 │   │   └── i18n.ts                  # locale detection, UI strings, locale-URL function
 │   ├── locales/{en,ne}.json         # fixed UI copy, i18n.md §5
@@ -63,10 +66,12 @@ astro-site/
 
 ## 4. Data flow
 
-`src/data/*.json` → `lib/schema.ts` (validate) → `lib/content.ts` (drop
+`src/content/{work,updates}/{slug}/{en,np}.md` → `content.config.ts`
+(collection schemas) → `lib/content.ts` (merge locales, validate, drop
 drafts, sort, resolve locale with fallback) → pages/components.
-Components never import the JSON directly; `lib/content.ts` is the one
-place that knows file locations and shapes.
+Remaining JSON data follows the same schema/content loader path. Components
+never import source content directly; `lib/content.ts` is the one place that
+knows content locations and page-facing shapes.
 
 ## 5. Interactivity without a framework
 

@@ -9,8 +9,8 @@
         "menu": "Open menu",
         "closeMenu": "Close menu"
   },
-  "hero": { "eyebrow": "Public service", "exploreWork": "Explore my work" },
-  "contact": { "title": "Want to connect with me?", "description": "Follow along on social media for updates and public activities." },
+  "hero": { "eyebrow": "Public Service", "exploreWork": "Explore my work" },
+  "contact": { "title": "Want to connect with me?", "description": "Follow along on social media for updates and public activities.", "email": "Email", "phone": "Phone", "address": "Office address" },
   "issue": {
     "eyebrow": "Community voice",
     "title": "Your Voice",
