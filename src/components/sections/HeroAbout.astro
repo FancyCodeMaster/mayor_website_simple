@@ -22,8 +22,9 @@ const imageAlt = pick(profile.heroImage.alt, locale).value;
 				<a href="#works" class="mt-8 inline-flex rounded-md bg-primary-dark px-5 py-3 font-semibold text-white hover:bg-primary">{ui.hero.exploreWork}</a>
 			</div>
 			<div class="order-1 flex justify-center md:order-2 md:justify-end">
-				<div class="relative w-full max-w-md overflow-hidden rounded-3xl border border-border bg-bg px-5 pt-6 shadow-xl shadow-primary/10 sm:px-8 sm:pt-10">
-					<img src={profile.heroImage.src} alt={imageAlt} width="1600" height="1600" fetchpriority="high" class="mx-auto h-[22rem] w-auto object-contain object-bottom sm:h-[30rem]" />
+				<div class="relative flex w-full max-w-lg items-end justify-center">
+					<div class="absolute bottom-4 h-64 w-64 rounded-full bg-primary/15 blur-3xl sm:h-80 sm:w-80" aria-hidden="true"></div>
+					<img src={profile.heroImage.src} alt={imageAlt} width="1600" height="1600" fetchpriority="high" class="relative z-10 mx-auto h-[26rem] w-auto object-contain object-bottom drop-shadow-[0_1.5rem_2.5rem_color-mix(in_srgb,var(--color-primary)_22%,transparent)] sm:h-[34rem]" />
 				</div>
 			</div>
 		</div>
