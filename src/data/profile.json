@@ -39,8 +39,8 @@
     "np": "नमुना कार्यालय ठेगाना"
   },
   "socialLinks": [
-    { "platform": "facebook", "username": "sample-candidate", "url": "https://facebook.com/sample-candidate", "icon": "/images/facebook-social-icon.png" },
-        { "platform": "instagram", "username": "sample.candidate", "url": "https://instagram.com/sample.candidate", "icon": "/images/instagram-social-icon.png" },
-        { "platform": "tiktok", "username": "@sample-candidate", "url": "https://tiktok.com/@sample-candidate", "icon": "/images/tiktok-social-icon.png" }
+    { "platform": "facebook", "username": "sample-candidate", "url": "https://www.facebook.com/share/1F94oGySoR/", "icon": "/images/facebook-social-icon.png" },
+        { "platform": "instagram", "username": "sample.candidate", "url": "https://www.facebook.com/share/1F94oGySoR/", "icon": "/images/instagram-social-icon.png" },
+        { "platform": "tiktok", "username": "@sample-candidate", "url": "https://www.tiktok.com/@shyamsundardhimal?_r=1&_t=ZS-9ARRIOEMtKn", "icon": "/images/tiktok-social-icon.png" }
   ]
 }
