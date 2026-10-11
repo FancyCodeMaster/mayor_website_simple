@@ -3,7 +3,7 @@
   "slug": "agricultural-supplies-subsidy",
   "title": {
     "en": "Agricultural Supplies Subsidy",
-    "np": "कृषि सामग्री अनुदान (?)"
+    "np": "कृषि सामग्री अनुदान"
   },
   "summary": {
     "en": "A 50% subsidy program for agricultural supplies intended to support local farmers and reduce the cost of essential farming materials.",

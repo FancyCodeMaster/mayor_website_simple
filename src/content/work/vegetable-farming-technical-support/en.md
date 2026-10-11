@@ -3,7 +3,7 @@
   "slug": "vegetable-farming-technical-support",
   "title": {
     "en": "Vegetable Farming Technical Support",
-    "np": "तरकारी खेती प्राविधिक अनुदान (?)"
+    "np": "तरकारी खेती प्राविधिक अनुदान"
   },
   "summary": {
     "en": "Free technical support for vegetable farming to help local residents improve their knowledge and practices in vegetable cultivation.",

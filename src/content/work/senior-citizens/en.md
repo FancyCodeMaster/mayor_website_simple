@@ -3,7 +3,7 @@
   "slug": "senior-citizens",
   "title": {
     "en": "Senior Citizens",
-    "np": "जेष्ठ नागरिक (?)"
+    "np": "जेष्ठ नागरिक"
   },
   "summary": {
     "en": "A senior citizen-focused initiative listed under the ward's children and senior citizens programs. The available source document does not contain the complete description.",

@@ -22,8 +22,7 @@ the pure logic.
   language, an image with no alt, `endDate` before `startDate`.
 - **Draft filtering**: drafts never appear in lists, homepage previews,
   sitemap entries, or RSS items.
-- **Ordering**: homepage previews return `featured` items in file order;
-  `/work` sorts by `startDate` descending; `/updates` by `date` descending.
+- **Homepage selections**: homepage previews return the published items and order listed in `src/data/homepage.json`; invalid, duplicate, or draft slugs fail the build. `/work` sorts by `startDate` descending; `/updates` by `date` descending.
 - **Locale-URL function**: `/work/x` ↔ `/en/work/x`, `/` ↔ `/en`, no
   double prefix, query/hash handling.
 - **Ward validation**: rejects an out-of-range ward or unknown

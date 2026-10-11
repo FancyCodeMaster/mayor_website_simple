@@ -37,7 +37,7 @@ Everything is generated at build time from the JSON files.
 2. Uses the sticky nav's **language toggle** and **theme toggle**
    (top-right, `design_system.md` §3); both persist.
 3. Jumps between homepage sections via anchor nav.
-4. Work preview: owner-curated `featured` items in JSON file order, with
+4. Work preview: owner-selected slugs from `src/data/homepage.json`, with
    "View all projects" → `/work`.
 5. `/work`: filters by category/status, opens `/work/[slug]` as a normal
    page navigation.
@@ -59,15 +59,15 @@ into the homepage work section.
   optional end date, optional location. All text bilingual.
 - Status is shown as a colored badge with a text label on cards and detail
   pages (`design_system.md` §4).
-- Homepage preview: `featured`, non-draft items **in the order they appear
-  in `work.json`**.
+- Homepage preview: up to three non-draft items selected, in order, by
+  their folder slugs in `src/data/homepage.json`.
 - `/work`: every non-draft item, newest start date first, filterable by
   category and status.
 
 ### 5.3 Updates
 - `type` = `speech` / `interview` / `press` / `activity`. `press` items
   carry `externalUrl` + bilingual `sourceName` instead of original body.
-- Same featured / file-order / "View all" pattern. `/updates` lists
+- Same homepage selection / "View all" pattern. `/updates` lists
   non-draft items, newest date first.
 - RSS at `/updates.xml`.
 
@@ -93,11 +93,11 @@ display, no separate contact form.
 
 ## 6. Content management (replaces the admin panel)
 
-- Owner edits `work.json`, `updates.json`, `profile.json`,
-  `municipalities.json` (`content.md`), commits, pushes. Editing on
+- Owner edits the work/update content folders, `homepage.json`, `profile.json`,
+  and `municipalities.json` (`content.md`), commits, pushes. Editing on
   GitHub's web editor is a supported workflow.
-- Publish = `"draft": false`. Feature = `"featured": true`. Homepage order
-  = position in the file.
+- Publish = `"draft": false`. Homepage order is the order of the selected
+  folder slugs in `homepage.json`.
 - A push triggers an automatic rebuild/deploy (about 1-2 minutes).
 - A JSON mistake (bad syntax, missing field, duplicate slug) fails the
   build with a readable message; **the live site keeps serving the

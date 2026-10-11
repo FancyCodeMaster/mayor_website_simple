@@ -3,7 +3,7 @@
   "slug": "water-tank-construction-and-tap-extension",
   "title": {
     "en": "Water Tank Construction and Tap Extension",
-    "np": "खानेपानी ट्यांकी निर्माण र धारा विस्तार (?)"
+    "np": "खानेपानी ट्यांकी निर्माण र धारा विस्तार"
   },
   "summary": {
     "en": "A drinking water infrastructure initiative involving five water supply projects, construction of 300 cubic-foot water tanks, and extension of drinking water taps to improve local access to water.",

@@ -3,7 +3,7 @@
   "slug": "skills-training",
   "title": {
     "en": "Skills Training",
-    "np": "सीपमूलक तालिम (?)"
+    "np": "सीपमूलक तालिम"
   },
   "summary": {
     "en": "A skills development initiative providing training opportunities in Montessori education, beautician services, driving and small-scale home industries, with a focus on women and youth.",

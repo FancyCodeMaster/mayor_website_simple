@@ -3,7 +3,7 @@
   "slug": "upgrading-construction",
   "title": {
     "en": "Upgrading Construction",
-    "np": "स्तरोन्नति (?) निर्माण"
+    "np": "स्तरोन्नति निर्माण"
   },
   "summary": {
     "en": "A construction and upgrading initiative covering approximately 12 kilometers, aimed at improving local infrastructure and access within the ward.",

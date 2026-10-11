@@ -38,6 +38,13 @@ export const municipalitySchema = z.object({
 
 export const issueCategorySchema = z.object({ id: z.string(), name: bilingualSchema });
 
+const contentSlugSchema = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
+
+export const homepageSchema = z.object({
+	works: z.array(contentSlugSchema).max(3),
+	updates: z.array(contentSlugSchema).max(3),
+});
+
 export const updateSchema = z.object({
 	slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
 	type: z.enum(['speech', 'interview', 'press', 'activity']),

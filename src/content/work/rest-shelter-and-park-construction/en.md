@@ -3,7 +3,7 @@
   "slug": "rest-shelter-and-park-construction",
   "title": {
     "en": "Rest Shelter/Park Construction",
-    "np": "फल्चा/पार्क निर्माण (?)"
+    "np": "फल्चा/पार्क निर्माण"
   },
   "summary": {
     "en": "Construction of three rest shelters or parks to create accessible community spaces for residents and visitors.",

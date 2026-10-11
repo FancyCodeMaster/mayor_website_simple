@@ -3,7 +3,7 @@
   "slug": "modern-health-post",
   "title": {
     "en": "Modern Health Post",
-    "np": "अत्याधुनिक स्वास्थ्य चौकी (?)"
+    "np": "अत्याधुनिक स्वास्थ्य चौकी"
   },
   "summary": {
     "en": "Construction of a modern health post with a stated investment of Rs. 8 crore, aimed at strengthening local healthcare infrastructure.",

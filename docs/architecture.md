@@ -35,7 +35,8 @@ astro-site/
 │   ├── data/                         # remaining owner-editable JSON
 │   │   ├── profile.json
 │   │   ├── municipalities.json
-│   │   └── issue-categories.json
+│   │   ├── issue-categories.json
+│   │   └── homepage.json             # homepage work/update selections
 │   ├── pages/
 │   │   ├── index.astro              # /
 │   │   ├── en/index.astro           # /en
@@ -68,7 +69,7 @@ astro-site/
 
 `src/content/{work,updates}/{slug}/{en,np}.md` → `content.config.ts`
 (collection schemas) → `lib/content.ts` (merge locales, validate, drop
-drafts, sort, resolve locale with fallback) → pages/components.
+drafts, sort, resolve homepage selections, resolve locale with fallback) → pages/components.
 Remaining JSON data follows the same schema/content loader path. Components
 never import source content directly; `lib/content.ts` is the one place that
 knows content locations and page-facing shapes.

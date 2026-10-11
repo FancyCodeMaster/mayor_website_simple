@@ -18,6 +18,7 @@ Other owner-editable data remains in `src/data/`:
 | `profile.json` | object | Hero/About and Contact |
 | `municipalities.json` | array | Issue-form dropdowns |
 | `issue-categories.json` | array | Issue-form categories |
+| `homepage.json` | object | Work and update slugs shown in the homepage previews |
 
 ## 1. Owner workflow
 
@@ -43,10 +44,7 @@ Other owner-editable data remains in `src/data/`:
 - **Images** are files under `public/images/`, referenced by absolute
   path (`/images/work/example.jpg`). Every image object carries bilingual
   `alt`.
-- **Homepage order** = position in the file among published items. The
-  homepage displays the first three published items; the section page displays
-  all published items. The `featured` field is retained for content metadata
-  but does not limit homepage visibility. There is no `order` field.
+- **Homepage selections** are controlled by [`src/data/homepage.json`](../src/data/homepage.json). Set `works` and `updates` to the folder slugs of the published items to show, in display order. Each list may contain up to three slugs; missing, draft, duplicate, or unknown slugs fail the build. The section pages display all published items. The `featured` field is retained for content metadata but does not control homepage visibility.
 - **List page order**: Work by `startDate` descending, Updates by `date`
   descending.
 - **`draft: true`** items are excluded everywhere (pages, sitemap, RSS).
@@ -139,7 +137,18 @@ Update body for this locale.
 }
 ```
 
-## 6. `municipalities.json`
+## 6. `homepage.json`
+
+```json
+{
+  "works": ["example-project", "another-project"],
+  "updates": ["example-speech", "example-event"]
+}
+```
+
+Use the folder slug, not the title. The order in each list is the order shown on the homepage. Keep each list at three items or fewer.
+
+## 7. `municipalities.json`
 
 ```json
 [
@@ -150,7 +159,7 @@ Update body for this locale.
 - Wards are simply `1..wardCount`. File order = dropdown order.
 - `id` is a unique kebab-case string; `wardCount` is a positive integer.
 
-## 7. Validation (build-time)
+## 8. Validation (build-time)
 
 `src/content.config.ts` defines Astro Content Collection schemas using the
 zod schemas in `lib/schema.ts`. `lib/content.ts` loads both locale files,
@@ -168,14 +177,14 @@ fails, with the file, item slug, and field named, on:
 
 Missing translations are **not** errors (soft fallback, `i18n.md` §4).
 
-## 8. Picking a locale (used by every page)
+## 9. Picking a locale (used by every page)
 
 `lib/content.ts` exposes `pick(field, locale)` → `{ value, isFallback }`.
 If the requested language is empty it returns the other language with
 `isFallback: true`, so the page can show a small "translation coming soon"
 note instead of silently showing the wrong language.
 
-## 9. Later migration path
+## 10. Later migration path
 
 Field names and shapes mirror the earlier database design, so moving to a
 backend/admin later means replacing the loaders in `lib/content.ts`; the

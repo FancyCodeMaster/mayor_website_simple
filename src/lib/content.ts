@@ -2,7 +2,8 @@ import { getCollection } from 'astro:content';
 import profileData from '../data/profile.json';
 import municipalitiesData from '../data/municipalities.json';
 import issueCategoriesData from '../data/issue-categories.json';
-import { profileSchema, workSchema, updateSchema, municipalitySchema, issueCategorySchema, type Profile, type Work, type Update, type Municipality, type IssueCategory } from './schema';
+import homepageData from '../data/homepage.json';
+import { profileSchema, workSchema, updateSchema, municipalitySchema, issueCategorySchema, homepageSchema, type Profile, type Work, type Update, type Municipality, type IssueCategory } from './schema';
 
 export type { Work, Update, Municipality, IssueCategory } from './schema';
 export type Locale = 'en' | 'np';
@@ -33,7 +34,19 @@ export const works: Work[] = [...mergeEntries(workEntriesEn, workEntriesNp)].map
 	return workSchema.parse({ ...source.data, slug, body: { en: markdownBlocks(entries.en?.body), np: markdownBlocks(entries.np?.body) } });
 });
 export const publishedWorks = works.filter((work) => !work.draft).sort((a, b) => b.startDate.localeCompare(a.startDate));
-export const featuredWorks = publishedWorks.slice(0, 3);
+const homepage = homepageSchema.parse(homepageData);
+
+function selectHomepageItems<T extends { slug: string; draft: boolean }>(kind: 'work' | 'update', slugs: string[], entries: T[]) {
+	const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+	if (new Set(slugs).size !== slugs.length) throw new Error(`Duplicate homepage ${kind} slug`);
+	return slugs.map((slug) => {
+		const entry = bySlug.get(slug);
+		if (!entry) throw new Error(`Homepage ${kind} not found or is a draft: ${slug}`);
+		return entry;
+	});
+}
+
+export const featuredWorks = selectHomepageItems('work', homepage.works, publishedWorks);
 
 const updateEntriesEn = await getCollection('updatesEn');
 const updateEntriesNp = await getCollection('updatesNp');
@@ -43,7 +56,7 @@ export const updates: Update[] = [...mergeEntries(updateEntriesEn, updateEntries
 	return updateSchema.parse({ ...source.data, slug, body: { en: markdownBlocks(entries.en?.body), np: markdownBlocks(entries.np?.body) } });
 });
 export const publishedUpdates = updates.filter((update) => !update.draft).sort((a, b) => b.date.localeCompare(a.date));
-export const featuredUpdates = publishedUpdates.slice(0, 3);
+export const featuredUpdates = selectHomepageItems('update', homepage.updates, publishedUpdates);
 
 export const profile: Profile = profileSchema.parse(profileData);
 export const municipalities: Municipality[] = municipalitiesData.map((item) => municipalitySchema.parse(item));
