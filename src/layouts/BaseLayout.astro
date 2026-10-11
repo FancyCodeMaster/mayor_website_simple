@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import Navigation from '../components/interactive/Navigation.astro';
-import type { Locale } from '../lib/content';
+import { profile, type Locale } from '../lib/content';
 
 const { locale, title, description } = Astro.props as { locale: Locale; title: string; description: string };
 const path = locale === 'en' ? '/en' : '/';
@@ -18,7 +18,8 @@ const pathname = Astro.url.pathname;
 		<link rel="alternate" hreflang="ne" href="/" />
 		<link rel="alternate" hreflang="en" href="/en" />
 		<link rel="alternate" hreflang="x-default" href="/" />
-		<link rel="icon" href="/favicon.svg" />
+		<link rel="icon" type="image/png" href={profile.heroImage.src} />
+		<link rel="apple-touch-icon" href={profile.heroImage.src} />
 		<title>{title}</title>
 		<script is:inline>
 			const savedTheme = localStorage.getItem('theme');
