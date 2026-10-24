@@ -23,12 +23,13 @@ const formatDate = (date: string) => new Intl.DateTimeFormat(locale === 'en' ? '
 			</div>
 		</div>
 		{items.length === 0 ? <p class="mt-10 rounded-2xl border border-border bg-surface px-6 py-10 text-center text-text-muted">{ui.works.empty}</p> : <div class="mt-10 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-			{items.map((work) => {
+			{items.map((work, index) => {
 				const title = pick(work.title, locale).value;
+				const visibility = index === 0 ? '' : index === 1 ? 'hidden sm:flex' : 'hidden md:flex';
 				const location = pick(work.location, locale).value;
 				const summary = pick(work.summary, locale).value;
 				const status = { ...ui.works.statuses[work.status], className: statusClasses[work.status] };
-				return <article class="flex flex-col overflow-hidden rounded-2xl border border-border bg-surface">
+				return <article class={`flex flex-col overflow-hidden rounded-2xl border border-border bg-surface ${visibility}`}>
 					<img src={work.coverImage.src} alt={pick(work.coverImage.alt, locale).value} width="1600" height="900" loading="lazy" class="aspect-[16/9] w-full object-cover" />
 					<div class="flex flex-1 flex-col p-5">
 						<p class={`mb-3 inline-flex w-fit items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold ${status.className}`}><span aria-hidden="true">{status.icon}</span>{status.label}</p>

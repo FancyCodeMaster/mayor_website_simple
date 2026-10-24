@@ -71,11 +71,17 @@ into the homepage work section.
   non-draft items, newest date first.
 - RSS at `/updates.xml`.
 
-### 5.4 Contact
+### 5.4 Social Moments
+- The homepage shows at least three owner-configured social video previews in JSON order; additional items can be browsed with the carousel controls.
+- Each item requires a local video URL and a configurable 5–10 second preview duration.
+- If a social URL is present, the centered item reveals a "See more" link that opens it in a new tab; otherwise it provides a localized play/pause control.
+- Previous/next controls cycle the centered item, and the layout collapses to a single centered video on small screens. The first frame is used as the poster.
+
+### 5.5 Contact
 Office email, phone, address, social links from `profile.json`. Static
 display, no separate contact form.
 
-### 5.5 Submit an Issue
+### 5.6 Submit an Issue
 - Fields: **municipality** (dropdown, from `municipalities.json`),
   **ward** (dropdown, depends on the municipality's `wardCount`), **tole**
   (free text, 1-100 chars), **category** (`infrastructure` / `sanitation` /

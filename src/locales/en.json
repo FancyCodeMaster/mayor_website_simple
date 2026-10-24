@@ -4,6 +4,8 @@
     "about": "About",
     "work": "Works",
     "updates": "Updates",
+    "socialMoments": "Social Moments",
+    "moments": "Moments",
     "contact": "Contact",
     "submitIssue": "Submit an issue",
         "menu": "Open menu",
@@ -37,6 +39,18 @@
     "sent": "Your voice has been sent to the authorized person.",
     "sendFailed": "Your voice could not be sent. Please try again later.",
     "disclaimer": "Your name and email are optional. All submissions are handled according to the office's privacy policy and used to review and respond to your issue."
+  },
+  "socialMoments": {
+    "title": "Social Moments",
+    "description": "A glimpse of public moments shared on social media.",
+    "seeMore": "See more",
+    "play": "Play",
+    "pause": "Pause",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "carouselLabel": "Browse social moments",
+    "previous": "Previous social moment",
+    "next": "Next social moment"
   },
   "updates": {
     "title": "Latest Updates",

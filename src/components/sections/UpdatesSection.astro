@@ -13,9 +13,10 @@ const formatDate = (date: string) => new Intl.DateTimeFormat(locale === 'en' ? '
 		<p class="text-sm font-bold uppercase tracking-[0.18em] text-primary">{ui.nav.updates}</p>
 		<h2 id="updates-title" class="mt-3 text-3xl font-bold tracking-tight text-text sm:text-4xl">{ui.updates.title}</h2>
 		{items.length === 0 ? <p class="mt-10 rounded-2xl border border-border bg-bg px-6 py-10 text-center text-text-muted">{ui.updates.empty}</p> : <div class="mt-10 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-			{items.map((update) => {
+			{items.map((update, index) => {
 				const title = pick(update.summary, locale).value;
-				return <article class="flex flex-col overflow-hidden rounded-2xl border border-border bg-bg">
+				const visibility = index === 0 ? '' : index === 1 ? 'hidden sm:flex' : 'hidden md:flex';
+				return <article class={`flex flex-col overflow-hidden rounded-2xl border border-border bg-bg ${visibility}`}>
 					{update.coverImage && <img src={update.coverImage.src} alt={pick(update.coverImage.alt, locale).value} width="1600" height="900" loading="lazy" class="aspect-[16/9] w-full object-cover" />}
 					<div class="flex flex-1 flex-col p-5">
 						<p class="text-xs font-semibold uppercase tracking-wide text-primary">{ui.updates.types[update.type]}</p>

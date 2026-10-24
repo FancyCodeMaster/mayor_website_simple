@@ -19,6 +19,7 @@ Other owner-editable data remains in `src/data/`:
 | `municipalities.json` | array | Issue-form dropdowns |
 | `issue-categories.json` | array | Issue-form categories |
 | `homepage.json` | object | Work and update slugs shown in the homepage previews |
+| `social-moments.json` | object | Three ordered social video previews shown on the homepage |
 
 ## 1. Owner workflow
 
@@ -148,7 +149,33 @@ Update body for this locale.
 
 Use the folder slug, not the title. The order in each list is the order shown on the homepage. Keep each list at three items or fewer.
 
-## 7. `municipalities.json`
+## 7. `social-moments.json`
+
+The homepage's Social Moments section reads three items in array order:
+
+```json
+{
+  "items": [
+    {
+      "id": "social-moment-1",
+      "title": { "en": "Verified title", "np": "प्रमाणित शीर्षक" },
+      "videoUrl": "/videos/social-moment-1.mp4",
+      "durationSeconds": 7,
+      "socialUrl": "https://social.example/verified-post",
+      "platform": "Facebook"
+    }
+  ]
+}
+```
+
+The schema requires at least three items. `videoUrl` is required and must
+point to a local file under `public/videos/`. `durationSeconds` must be between
+5 and 10. `socialUrl` is optional: when present, the centered item reveals a
+`See more` link after its configured preview duration; when absent, it shows a
+localized play/pause control instead. The first frame is captured in the
+browser as the video's poster.
+
+## 8. `municipalities.json`
 
 ```json
 [

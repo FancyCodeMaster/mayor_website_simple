@@ -45,6 +45,17 @@ export const homepageSchema = z.object({
 	updates: z.array(contentSlugSchema).max(3),
 });
 
+export const socialMomentSchema = z.object({
+	id: contentSlugSchema,
+	title: bilingualSchema,
+	videoUrl: z.string().startsWith('/videos/'),
+	durationSeconds: z.number().int().min(5).max(10),
+	socialUrl: z.url().nullable(),
+	platform: z.string().min(1),
+});
+
+export const socialMomentsSchema = z.object({ items: z.array(socialMomentSchema).min(3) });
+
 export const updateSchema = z.object({
 	slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
 	type: z.enum(['speech', 'interview', 'press', 'activity']),
@@ -59,6 +70,7 @@ export const updateSchema = z.object({
 });
 
 export type Profile = z.infer<typeof profileSchema>;
+export type SocialMoment = z.infer<typeof socialMomentSchema>;
 export type Work = z.infer<typeof workSchema>;
 export type Update = z.infer<typeof updateSchema>;
 export type Municipality = z.infer<typeof municipalitySchema>;

@@ -1,0 +1,59 @@
+{
+    "items":  [
+                  {
+                      "id":  "social-moment-1",
+                      "title":  {
+                                    "en":  "Placeholder social moment 1",
+                                    "np":  "नमुना सामाजिक क्षण १"
+                                },
+                      "socialUrl":  "https://www.facebook.com/reel/1112520321287832",
+                      "platform":  "Facebook",
+                      "videoUrl":  "/videos/fb-video-1.mp4",
+                      "durationSeconds":  5
+                  },
+                  {
+                      "id":  "social-moment-2",
+                      "title":  {
+                                    "en":  "Placeholder social moment 2",
+                                    "np":  "नमुना सामाजिक क्षण २"
+                                },
+                      "socialUrl":  "https://www.tiktok.com/@shyamsundardhimal03/video/7700153697472400661",
+                      "platform":  "TikTok",
+                      "videoUrl":  "/videos/tiktok-video-tika.mp4",
+                      "durationSeconds":  7
+                  },
+                  {
+                      "id":  "social-moment-3",
+                      "title":  {
+                                    "en":  "Placeholder social moment 3",
+                                    "np":  "नमुना सामाजिक क्षण ३"
+                                },
+                      "socialUrl":  null,
+                      "platform":  "Facebook",
+                      "videoUrl":  "/videos/fb-video-2.mp4",
+                      "durationSeconds":  10
+                  },
+                  {
+                      "id":  "social-moment-4",
+                      "title":  {
+                                    "en":  "Placeholder social moment 4",
+                                    "np":  "नमुना सामाजिक क्षण ४"
+                                },
+                      "socialUrl":  "https://www.tiktok.com/@shyamsundardhimal?_r=1\u0026_t=ZS-9ARRIOEMtKn",
+                      "platform":  "TikTok",
+                      "videoUrl":  "/videos/social-moment-4.mp4",
+                      "durationSeconds":  6
+                  },
+                  {
+                      "id":  "social-moment-5",
+                      "title":  {
+                                    "en":  "Placeholder social moment 5",
+                                    "np":  "नमुना सामाजिक क्षण ५"
+                                },
+                      "socialUrl":  "https://www.facebook.com/share/1F94oGySoR/",
+                      "platform":  "Facebook",
+                      "videoUrl":  "/videos/social-moment-5.mp4",
+                      "durationSeconds":  8
+                  }
+              ]
+}

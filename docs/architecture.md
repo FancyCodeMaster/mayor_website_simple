@@ -87,6 +87,7 @@ The old Preact islands are plain `.astro` components with a small vanilla
 | `NavScroll` | Highlights the active homepage section |
 | `ListFilter` | Shows/hides already-rendered cards via `data-category` / `data-status` / `data-type`; syncs selection to the query string. With JS off, all items show. |
 | `IssueForm` | Municipality → ward dropdown, client validation, Google Apps Script submission, and success notice (§9) |
+| `SocialMomentsSection` | Shows three or more JSON-configured local video previews; the centered item plays for its configured 5–10 seconds and optionally links back to social media. |
 
 If a component doesn't need JS, it has no `<script>`.
 

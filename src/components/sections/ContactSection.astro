@@ -8,13 +8,13 @@ const address = locale === 'en' ? profile.officeAddress.en : profile.officeAddre
 const platformNames = { facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok' } as const;
 ---
 
-<section id="contact" class="scroll-mt-20 bg-bg" aria-labelledby="contact-title">
+<section id="contact" class="scroll-mt-20 bg-surface" aria-labelledby="contact-title">
 	<div class="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
 		<p class="text-sm font-bold uppercase tracking-[0.18em] text-primary">{ui.nav.contact}</p>
 		<h2 id="contact-title" class="mt-4 text-3xl font-black tracking-tight text-text sm:text-4xl">{ui.contact.title}</h2>
 		<p class="mt-4 max-w-xl leading-7 text-text-muted">{ui.contact.description}</p>
-		<div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-			<a href={`mailto:${profile.contactEmail}`} class="group rounded-2xl border border-border bg-surface p-5 transition hover:-translate-y-1 hover:border-primary hover:shadow-lg hover:shadow-primary/10">
+		<div class="mt-8 grid gap-4 sm:grid-cols-3">
+			<a href={`mailto:${profile.contactEmail}`} class="group min-w-0 overflow-hidden rounded-2xl border border-border bg-bg p-5 transition hover:-translate-y-1 hover:border-primary hover:shadow-lg hover:shadow-primary/10">
 			<div class="flex items-start gap-4">
 				<span class="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary" aria-hidden="true">
 					<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16v12H4z" /><path d="m4 7 8 6 8-6" /></svg>
@@ -25,7 +25,7 @@ const platformNames = { facebook: 'Facebook', instagram: 'Instagram', tiktok: 'T
 				</span>
 			</div>
 			</a>
-			<a href={`tel:${profile.contactPhone}`} class="group rounded-2xl border border-border bg-surface p-5 transition hover:-translate-y-1 hover:border-primary hover:shadow-lg hover:shadow-primary/10">
+			<a href={`tel:${profile.contactPhone}`} class="group min-w-0 overflow-hidden rounded-2xl border border-border bg-bg p-5 transition hover:-translate-y-1 hover:border-primary hover:shadow-lg hover:shadow-primary/10">
 			<div class="flex items-start gap-4">
 				<span class="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary" aria-hidden="true">
 					<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6.6 3.5 9 3l2 5-2.2 1.6a15.5 15.5 0 0 0 5.1 5.1l1.6-2.2 5 2-.5 2.4a2 2 0 0 1-2.1 1.5C11 18.3 5.7 13 4.6 6.1A2 2 0 0 1 6.6 3.5Z" /></svg>
@@ -36,7 +36,7 @@ const platformNames = { facebook: 'Facebook', instagram: 'Instagram', tiktok: 'T
 				</span>
 			</div>
 			</a>
-			<div class="rounded-2xl border border-border bg-surface p-5">
+			<div class="min-w-0 overflow-hidden rounded-2xl border border-border bg-bg p-5">
 			<div class="flex items-start gap-4">
 				<span class="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary" aria-hidden="true">
 					<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z" /><circle cx="12" cy="9" r="2.3" /></svg>
@@ -48,16 +48,14 @@ const platformNames = { facebook: 'Facebook', instagram: 'Instagram', tiktok: 'T
 			</div>
 			</div>
 		</div>
-		<div class="mt-8 flex justify-center">
-			<div class="flex flex-nowrap justify-center gap-4 sm:gap-5">
-			{profile.socialLinks.map((social) => <a href={social.url} target="_blank" rel="noopener noreferrer" aria-label={`${platformNames[social.platform]} ${social.username}`} class="group flex size-14 shrink-0 items-center justify-center rounded-full border border-border bg-surface p-2 text-text transition hover:-translate-y-1 hover:border-primary hover:bg-surface/70 sm:size-auto sm:min-w-[11rem] sm:justify-start sm:gap-3 sm:rounded-xl sm:px-4 sm:py-3">
+		<div class="mt-8 flex flex-nowrap justify-center gap-4 overflow-hidden sm:gap-5">
+			{profile.socialLinks.map((social) => <a href={social.url} target="_blank" rel="noopener noreferrer" aria-label={`${platformNames[social.platform]} ${social.username}`} class="group flex size-14 w-14 flex-none items-center justify-center overflow-hidden rounded-full border border-border bg-bg p-2 text-text transition hover:-translate-y-1 hover:border-primary hover:bg-surface/70 sm:size-auto sm:w-[11rem] sm:justify-start sm:gap-3 sm:rounded-xl sm:px-4 sm:py-3">
 				<img src={social.icon} alt="" width="40" height="40" class="size-10 object-contain transition-transform group-hover:scale-105" aria-hidden="true" />
-				<span class="hidden text-left sm:block">
-					<span class="block text-sm font-semibold">{platformNames[social.platform]}</span>
-					<span class="block text-sm text-text-muted">{social.username}</span>
+				<span class="hidden min-w-0 text-left sm:block">
+									<span class="block truncate text-sm font-semibold">{platformNames[social.platform]}</span>
+									<span class="block truncate text-sm text-text-muted">{social.username}</span>
 				</span>
 			</a>)}
-			</div>
 		</div>
 	</div>
 </section>

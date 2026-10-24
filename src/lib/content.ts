@@ -3,9 +3,10 @@ import profileData from '../data/profile.json';
 import municipalitiesData from '../data/municipalities.json';
 import issueCategoriesData from '../data/issue-categories.json';
 import homepageData from '../data/homepage.json';
-import { profileSchema, workSchema, updateSchema, municipalitySchema, issueCategorySchema, homepageSchema, type Profile, type Work, type Update, type Municipality, type IssueCategory } from './schema';
+import socialMomentsData from '../data/social-moments.json';
+import { profileSchema, workSchema, updateSchema, municipalitySchema, issueCategorySchema, homepageSchema, socialMomentsSchema, type Profile, type Work, type Update, type Municipality, type IssueCategory } from './schema';
 
-export type { Work, Update, Municipality, IssueCategory } from './schema';
+export type { Work, Update, Municipality, IssueCategory, SocialMoment } from './schema';
 export type Locale = 'en' | 'np';
 
 function markdownBlocks(body: string | undefined) {
@@ -59,6 +60,7 @@ export const publishedUpdates = updates.filter((update) => !update.draft).sort((
 export const featuredUpdates = selectHomepageItems('update', homepage.updates, publishedUpdates);
 
 export const profile: Profile = profileSchema.parse(profileData);
+export const socialMoments = socialMomentsSchema.parse(socialMomentsData).items;
 export const municipalities: Municipality[] = municipalitiesData.map((item) => municipalitySchema.parse(item));
 export const issueCategories: IssueCategory[] = issueCategoriesData.map((item) => issueCategorySchema.parse(item));
 

@@ -2,6 +2,7 @@
 import HeroAbout from '../../components/sections/HeroAbout.astro';
 import WorksSection from '../../components/sections/WorksSection.astro';
 import UpdatesSection from '../../components/sections/UpdatesSection.astro';
+import SocialMomentsSection from '../../components/sections/SocialMomentsSection.astro';
 import ContactSection from '../../components/sections/ContactSection.astro';
 import { pick, profile } from '../../lib/content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -15,5 +16,6 @@ const tagline = pick(profile.tagline, locale).value;
 	<HeroAbout locale={locale} />
 	<WorksSection locale={locale} />
 	<UpdatesSection locale={locale} />
+	<SocialMomentsSection locale={locale} />
 	<ContactSection locale={locale} />
 </BaseLayout>
