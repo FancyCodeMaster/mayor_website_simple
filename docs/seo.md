@@ -34,12 +34,17 @@ dependency). At build it emits both locale URLs for every non-draft
 work/update item plus the static routes, with `<xhtml:link
 rel="alternate" hreflang="...">` entries per URL. Drafts are excluded.
 
-`public/robots.txt`:
+`public/robots.txt` points crawlers to the canonical production domain:
 ```
 User-agent: *
 Allow: /
-Sitemap: https://{PUBLIC_SITE_URL}/sitemap.xml
+
+Sitemap: https://shyamsundardhimal.com.np/sitemap.xml
 ```
+
+`astro.config.mjs` sets `https://shyamsundardhimal.com.np` as the canonical
+site URL. The future `.com` domain should permanently redirect to `.com.np`
+until the canonical domain is intentionally changed.
 
 ## 5. Heading structure & content hygiene
 

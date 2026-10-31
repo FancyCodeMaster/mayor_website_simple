@@ -20,9 +20,19 @@ const status = { ...ui.works.statuses[work.status], className: statusClasses[wor
 const title = pick(work.title, locale).value;
 const summary = pick(work.summary, locale).value;
 const location = pick(work.location, locale).value;
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'CreativeWork',
+	name: title,
+	description: summary,
+	url: new URL(`/en/work/${work.slug}`, Astro.site ?? 'https://shyamsundardhimal.com.np').href,
+	image: new URL(work.coverImage.src, Astro.site ?? 'https://shyamsundardhimal.com.np').href,
+	locationCreated: location,
+	dateCreated: work.startDate,
+};
 ---
 
-<BaseLayout locale={locale} title={title} description={summary}>
+<BaseLayout locale={locale} title={title} description={summary} structuredData={structuredData}>
 	<main class="mx-auto max-w-4xl px-5 py-16 md:px-8 md:py-24">
 		<a href="/en/work" class="text-sm font-semibold text-primary-dark hover:text-primary">← Back to works</a>
 		<img src={work.coverImage.src} alt={pick(work.coverImage.alt, locale).value} width="1600" height="900" class="mt-8 aspect-[16/9] w-full rounded-2xl object-cover" />

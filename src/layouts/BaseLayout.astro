@@ -1,11 +1,36 @@
 ---
 import '../styles/global.css';
 import Navigation from '../components/interactive/Navigation.astro';
-import { profile, type Locale } from '../lib/content';
+import { pick, profile, type Locale } from '../lib/content';
 
-const { locale, title, description } = Astro.props as { locale: Locale; title: string; description: string };
-const path = locale === 'en' ? '/en' : '/';
+const { locale, title, description, structuredData } = Astro.props as {
+	locale: Locale;
+	title: string;
+	description: string;
+	structuredData?: Record<string, unknown>;
+};
 const pathname = Astro.url.pathname;
+const siteUrl = Astro.site ?? new URL('https://shyamsundardhimal.com.np');
+const canonicalUrl = new URL(pathname, siteUrl).href;
+const alternatePath = locale === 'en' ? pathname.replace(/^\/en(?=\/|$)/, '') || '/' : pathname === '/' ? '/en' : `/en${pathname}`;
+const alternateUrl = new URL(alternatePath, siteUrl).href;
+const defaultUrl = new URL(pathname.startsWith('/en') ? pathname.replace(/^\/en/, '') || '/' : pathname, siteUrl).href;
+const socialImage = new URL(profile.heroImage.src, siteUrl).href;
+const defaultStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: pick(profile.name, locale).value,
+	jobTitle: pick(profile.title, locale).value,
+	url: canonicalUrl,
+	image: socialImage,
+	address: {
+		'@type': 'PostalAddress',
+		addressLocality: pick(profile.location, locale).value,
+		streetAddress: pick(profile.officeAddress, locale).value,
+		addressCountry: 'NP',
+	},
+	sameAs: profile.socialLinks.map((link) => link.url),
+};
 ---
 
 <!doctype html>
@@ -14,13 +39,26 @@ const pathname = Astro.url.pathname;
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content={description} />
-		<link rel="canonical" href={path} />
-		<link rel="alternate" hreflang="ne" href="/" />
-		<link rel="alternate" hreflang="en" href="/en" />
-		<link rel="alternate" hreflang="x-default" href="/" />
+		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="alternate" hreflang="ne" href={locale === 'np' ? canonicalUrl : defaultUrl} />
+		<link rel="alternate" hreflang="en" href={locale === 'en' ? canonicalUrl : alternateUrl} />
+		<link rel="alternate" hreflang="x-default" href={defaultUrl} />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content={locale === 'en' ? 'en_US' : 'ne_NP'} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:site_name" content="Shyam Sundar Dhimal" />
+		<meta property="og:image" content={socialImage} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={socialImage} />
 		<link rel="icon" type="image/png" href={profile.heroImage.src} />
 		<link rel="apple-touch-icon" href={profile.heroImage.src} />
 		<title>{title}</title>
+		<script type="application/ld+json" set:html={JSON.stringify(structuredData ?? defaultStructuredData)} />
 		<script is:inline>
 			const savedTheme = localStorage.getItem('theme');
 			document.documentElement.dataset.theme = savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');

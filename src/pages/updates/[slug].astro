@@ -9,9 +9,19 @@ export function getStaticPaths() {
 const locale: Locale = 'np';
 const { update } = Astro.props;
 const title = pick(update.summary, locale).value;
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'NewsArticle',
+	headline: title,
+	description: title,
+	datePublished: update.date,
+	url: new URL(`/updates/${update.slug}`, Astro.site ?? 'https://shyamsundardhimal.com.np').href,
+	image: update.coverImage ? new URL(update.coverImage.src, Astro.site ?? 'https://shyamsundardhimal.com.np').href : undefined,
+	mainEntityOfPage: new URL(`/updates/${update.slug}`, Astro.site ?? 'https://shyamsundardhimal.com.np').href,
+};
 ---
 
-<BaseLayout locale={locale} title={title} description={title}>
+<BaseLayout locale={locale} title={title} description={title} structuredData={structuredData}>
 	<main class="mx-auto max-w-4xl px-5 py-16 md:px-8 md:py-24">
 		<a href="/updates" class="text-sm font-semibold text-primary-dark hover:text-primary">← अपडेटहरूमा फर्कनुहोस्</a>
 		{update.coverImage && <img src={update.coverImage.src} alt={pick(update.coverImage.alt, locale).value} width="1600" height="900" class="mt-8 aspect-[16/9] w-full rounded-2xl object-cover" />}

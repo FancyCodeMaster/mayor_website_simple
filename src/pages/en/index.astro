@@ -12,7 +12,7 @@ const name = pick(profile.name, locale).value;
 const tagline = pick(profile.tagline, locale).value;
 ---
 
-<BaseLayout locale={locale} title={name} description={tagline}>
+<BaseLayout locale={locale} title={`${name} | Ward Chairperson, Ward No. 3, Changunarayan`} description={tagline}>
 	<HeroAbout locale={locale} />
 	<WorksSection locale={locale} />
 	<UpdatesSection locale={locale} />
