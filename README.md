@@ -47,3 +47,4 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 # Disclaimer
 Put videos only upto 25mb in /videos/filename.ext
+not higher than this.
