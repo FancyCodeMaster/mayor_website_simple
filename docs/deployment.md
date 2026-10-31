@@ -60,7 +60,7 @@ configured politician address.
    opening that URL in a browser should return `{ "ok": true, "sheet": "Issues" }`.
 6. After every Code.gs change, create a new Web App version and update the deployment to that
    version. The public `/exec` URL otherwise continues running the old code.
-7. Share the Sheet with `silwalrikesh1@gmail.com` if that address needs to
+7. Share the Sheet with `email` if that address needs to
    review the submissions. Do not place Gmail addresses or Sheet IDs in the
    public site environment file.
 
