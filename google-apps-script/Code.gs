@@ -62,10 +62,10 @@ function sendConfirmationEmail(issue) {
   const politicianEmail = properties.getProperty('POLITICIAN_EMAIL') || issue.politicianEmail;
   const senderName = properties.getProperty('POLITICIAN_NAME') || 'Office';
   const subject = `${senderName}: confirmation of your community issue`;
-  const body = `Hello,\n\nThis is a confirmation that the office of ${senderName} received your community issue. No action is required from you.\n\nThank you,\n${senderName}`;
+  const body = `Hello,\n\nThis is a confirmation that the office of ${senderName} has received your community issue. No action is required from you.\n\nThank you,\n${senderName}`;
   const options = {
     name: senderName,
-    htmlBody: `<p>Hello,</p><p>This is a confirmation that the office of ${senderName} received your community issue. No action is required from you.</p><p>Thank you,<br>${senderName}</p>`,
+    htmlBody: `<p>Hello,</p><p>This is a confirmation that the office of ${senderName} has received your community issue. No action is required from you.</p><p>Thank you,<br>${senderName}</p>`,
   };
   if (politicianEmail) options.replyTo = politicianEmail;
 
